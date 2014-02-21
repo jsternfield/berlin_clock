@@ -1,0 +1,56 @@
+{
+  "uuid": "ebf3e530-8d5b-4fb2-a6f2-7346c369cc2b",
+  "shortName": "Berlin clock",
+  "longName": "Berlin Clock",
+  "companyName": "Pneumatic Transitions",
+  "versionCode": 1,
+  "versionLabel": "1.0.0",
+  "watchapp": {
+    "watchface": true
+  },
+  "appKeys": {},
+  "resources": {
+    "media": [
+      {
+	"type": "png",
+	"name": "IMAGE_BIG_LIGHT",
+	"file": "images/big_light.png"
+      },
+      {
+	"type": "png",
+	"name": "IMAGE_BIG_MEDIUM",
+	"file": "images/big_medium.png"
+      },
+      {
+	"type": "png",
+	"name": "IMAGE_BIG_DARK",
+	"file": "images/big_dark.png"
+      },
+      {
+	"type": "png",
+	"name": "IMAGE_SMALL_LIGHT",
+	"file": "images/small_light.png"
+      },
+      {
+	"type": "png",
+	"name": "IMAGE_SMALL_MEDIUM",
+	"file": "images/small_medium.png"
+      },
+      {
+	"type": "png",
+	"name": "IMAGE_SMALL_DARK",
+	"file": "images/small_dark.png"
+      },
+      {
+	"type": "png",
+	"name": "IMAGE_CIRCLE_LIGHT",
+	"file": "images/circle_light.png"
+      },
+      {
+	"type": "png",
+	"name": "IMAGE_CIRCLE_DARK",
+	"file": "images/circle_dark.png"
+      }
+    ]
+  }
+}
