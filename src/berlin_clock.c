@@ -1,8 +1,11 @@
 #include <pebble.h>
 
+#define SCREEN_HEIGHT 168
+#define SCREEN_WIDTH  144
+
 static Window *window;
 
-static GBitmap *big_light, *big_medium, *big_dark,
+static GBitmap *big_light,   *big_medium,   *big_dark,
                *small_light, *small_medium, *small_dark,
                *circle_light, *circle_dark;
 
@@ -40,7 +43,7 @@ static void define_layers(Window *window) {
 
   /* circle layer */
   GRect frame = (GRect) {
-    .origin = { (144/2)-15, 168/6-15 },
+    .origin = { (SCREEN_WIDTH/2)-15, (SCREEN_HEIGHT/6)-15 },
     .size = { 30, 30 }
   };
   circle_layer = bitmap_layer_create(frame);
@@ -60,10 +63,10 @@ static void define_layers(Window *window) {
     }
 
     for (int column = 0; column < num_columns; column++) {
-      frame.origin.x = 144/2  /* center */
+      frame.origin.x = (SCREEN_WIDTH/2)  /* center */
                         - (num_columns*column_width + (num_columns-1)*column_spacing)/2 /* left offset */
 		        + column*(column_width+column_spacing); /* column offset */
-      frame.origin.y = (168/6)*row;
+      frame.origin.y = (SCREEN_HEIGHT/6)*row;
       frame.size.w   = column_width;
       frame.size.h   = 20;
 
@@ -152,6 +155,8 @@ static void draw_time(struct tm *tick_time) {
     
 
 static void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
+  static int last_min = 70; /* 70 is impossible, therefore will trigger reset on first display */
+
   /* Flip the circle color once a second */
   if ((tick_time->tm_sec % 2) == 0) {
     bitmap_layer_set_bitmap(circle_layer, circle_light);
@@ -159,7 +164,8 @@ static void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
     bitmap_layer_set_bitmap(circle_layer, circle_dark);
   }
  
-  if ( tick_time->tm_sec == 0 ) {
+  if ( tick_time->tm_min != last_min ) {
+    last_min = tick_time->tm_min;
     draw_time(tick_time);
   }
 }
@@ -173,7 +179,7 @@ static void window_load(Window *window) {
 
   time_t now = time(NULL);
   struct tm *tick_time = localtime(&now);
-  draw_time(tick_time);
+  handle_second_tick(tick_time, (TimeUnits) 0);
 }
 
 static void window_unload(Window *window) {
